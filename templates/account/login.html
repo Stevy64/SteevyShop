@@ -5,54 +5,85 @@
 
     {% block content %}
 
-      <div class="container py-5">
-        <div class="col-md-8 offset-2">
+      <div class="">
 
-        <h1 class="mb-5">Log In to Your Account</h1>
-        
-        
-        <div class="card mb-4" id="forms">
+          <section class="vh-100" style="background-color: #9A616D;">
+            <div class="container py-5 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                  <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                      <div class="col-md-6 col-lg-5 d-none d-md-block">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                          alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                      </div>
+                      <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                        <div class="card-body p-4 p-lg-5 text-black">
+
+                          {% include 'partials/_messages.html' %}
+
+                          <form method="post" action="">
+
+                            <div class="d-flex align-items-center mb-3 pb-1">
+                              <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                              <span class="h1 fw-bold mb-0">Gabon Zone</span>
+                            </div>
           
-          <div class="card-body">
-              
-            {% include 'partials/_messages.html' %}
+                            <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Veuillez vous connecter</h5>
 
-            <form method="post" action="">
-              <fieldset>
-                {% csrf_token %}
+                            <fieldset>
+                              {% csrf_token %}
 
-                {% for fm in form %}
-                    <div class="form-group">
-                        {{fm.label_tag}}
-                        {{fm}}
-                        <small class="text-danger">{{fm.errors|striptags}}</small>
+                              {% for fm in form %}
+                                  <div class="form-group">
+                                      {{fm.label_tag}}
+                                      {{fm}}
+                                      <small class="text-danger">{{fm.errors|striptags}}</small>
+                                  </div>
+                              {% endfor %}
+
+                              <div class="form-check d-flex justify-content-start mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
+                                <label class="form-check-label" for="invalidCheck"> J'accepte <a href="#!" class="small text-muted">les conditions d'utilisation</a></label>
+                                <div class="invalid-feedback">
+                                  Vous devez accepter les conditions générales d'utilisation.
+                                </div>
+                              </div>
+
+                              <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+
+                              <hr class="my-4">
+
+                              <!-- Checkbox -->
+                              <div class="form-check d-flex justify-content-start mb-4">
+                                <label class="form-check-label" for="form1Example3"> Mot de pass oublié ? <a href="{% url 'store:password-reset' %}">Réinitialiser</a> </label>
+                              </div>
+                              <div class="form-check d-flex justify-content-start mb-4">
+                                <label class="form-check-label" for="form1Example3"> Nouveau ici ? <a href="{% url 'store:register' %}">Créer un compte</a>  </label>
+                              </div>
+
+                            </fieldset>
+
+                            {% if form.non_field_errors %}
+                              {% for error in form.non_field_errors %}
+                                  <p class="alert alert-danger my-3">
+                                      {{error}}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </p>
+                              {% endfor %}
+                            {% endif %}
+
+                          </form>
+          
+                        </div>
+                      </div>
                     </div>
-                {% endfor %}
-                <button class="btn btn-primary" type="submit">Login</button>
-              </fieldset>
-
-              {% if form.non_field_errors %}
-                {% for error in form.non_field_errors %}
-                    <p class="alert alert-danger my-3">
-                        {{error}}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </p>
-                {% endfor %}
-              {% endif %}
-
-
-            </form>
-
-            <hr>
-
-            Forgot Password? <a href="{% url 'store:password-reset' %}">Reset Now</a> <br>
-            New Member? <a href="{% url 'store:register' %}">Create an Account</a> 
-            
-          </div>
-        </div>
-
-        </div>       
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
       </div>
 {% endblock content %}

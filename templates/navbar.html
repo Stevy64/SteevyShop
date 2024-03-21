@@ -23,7 +23,7 @@
                     
                 </li>
                 <li class="nav-item">
-                  <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Blog</a>
+                  <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Gabon zone</a>
                 </li>
                 <li class="nav-item">
                   <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Contact</a>
@@ -49,7 +49,11 @@
                     
                 </li>
                 {% else %}
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Connexion</a></li>
+                  <!-- <li class="nav-item login"><a class="nav-link" href="{% url 'store:login' %}">Connexion</a></li> -->
+                  <li class="nav-item login">
+                    <a class="nav-link btn btn-info btn-mr" style="background-color: #1b6087" href="{% url 'store:login' %}">
+                      <i class="fas fa-sign-in-alt" style="color: orange;" > Connexion</i>
+                    </a></li>
                   <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Creer un Compte</a></li>
                 {% endif %}   
               </ul>
