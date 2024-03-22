@@ -23,7 +23,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap5',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,13 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'django_bootstrap5',
     'store',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
-CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'bootstrap5', 'semantic-ui')
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
