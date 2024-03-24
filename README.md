@@ -42,6 +42,11 @@ This is a simple e-commerce website built with Django (Python) and PayPal is add
 *Alternative to Pip is Homebrew*
 
 ### Installation
+**0. Use Python 3.10 and above**
+
+virtualenv --python="/usr/bin/python2.6" "/path/to/new/virtualenv/"
+Ex : virtualenv -p python3.10 vevn
+
 **1. Create a Folder where you want to save the project**
 
 **2. Create a Virtual Environment and Activate**
