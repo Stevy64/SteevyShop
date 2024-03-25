@@ -86,13 +86,13 @@
               <!-- CART NAV-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="{% url 'store:home' %}"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</a></div>
-                  <div class="col-md-6 text-md-right"><a class="btn btn-outline-dark btn-sm" href="checkout.html">Proceder au Payement<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="{% url 'store:home' %}"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continuer mon shopping</a></div>
+                  <div class="col-md-6 text-md-right"><a class="btn btn-primary" data-toggle="collapse" href="#collapsePayment" role="button" aria-expanded="false" aria-controls="collapsePayment">Passer au Payement<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
                 </div>
               </div>
             </div>
             <!-- ORDER TOTAL-->
-            <div class="col-lg-4">
+            <div class="col-lg-4 collapse" id="collapsePayment">
               <div class="card border-0 rounded-0 p-lg-4 bg-light">
                 <div class="card-body">
                   <h5 class="text-uppercase mb-4">Mon Panier total</h5>
@@ -103,37 +103,106 @@
                     <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>${{total_amount|intcomma}}</span></li>
                     <li>
 
+                      <!-- COUPON DE REDUCTION
                       <form action="#">
                         <div class="form-group mb-0">
-                          <input class="form-control" type="text" placeholder="Enter your coupon">
-                          <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Apply coupon</button>
+                          <input class="form-control" type="text" placeholder="Entrez votre code de réduction">
+                          <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Appliquer la réduction</button>
                         </div>
                       </form>
+                      -->
 
                     </li>
                   </ul>
 
+                  <div id="accordion">
+                    <div>
+                      <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Coupon de réduction
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <form action="#">
+                          <div class="form-group mb-0">
+                            <input class="form-control" type="text" placeholder="Entrez votre code de réduction">
+                            <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Appliquer la réduction</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <h5 class="text-uppercase my-5">Payement</h5>
+                    <div>
+                      <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Adresse de Livraison
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                          <form action="{% url 'store:checkout' %}">
+
+                            {% if addresses %}
+                              {% for address in addresses %}
+                                <div class="mb-3" id="myform">
+                                <input type="radio" name="address" value="{{address.id}}" id="invalidCheck" {% if forloop.counter %}checked{% endif %} required> <strong>Adresse {{forloop.counter}}</strong> <br>
+                                ( {{address.locality}}, {{address.city}}, {{address.state}} )
+                                </div>
+                              {% endfor %}
+                              <!-- Set up a container element for the button -->
+                              <div class="text-end" id="paypal-button-container"></div>
+                              <button type="submit" class="btn btn-dark btn-outline-dark"><i class="fas fa-dollar-sign mr-2"></i><strong> Payer à la Livraison</strong></button>
+                            {% else %}
+                              </div>
+                              <label class="text-danger"> <i class="fas fa-exclamation-triangle"></i>Adresse manquante</label>
+                              <a class="btn btn-primary btn-large" href="{% url 'store:add-address' %}">Ajouter une adresse »</a>
+                            </div>
+                            {% endif %}            
+                          </div>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--
                   
                   <h5 class="text-uppercase my-5">Adresse de Livraison</h5>
                   
-                  <form action="{% url 'store:checkout' %}" id="myform">
+                  <form action="{% url 'store:checkout' %}">
 
                     {% if addresses %}
                       {% for address in addresses %}
-                        <div class="mb-3">
-                        <input type="radio" name="address" value="{{address.id}}"> <strong>Adresse {{forloop.counter}}</strong> <br>
+                        <div class="mb-3" id="myform">
+                        <input type="radio" name="address" value="{{address.id}}" id="invalidCheck" {% if forloop.counter %}checked{% endif %} required> <strong>Adresse {{forloop.counter}}</strong> <br>
                         ( {{address.locality}}, {{address.city}}, {{address.state}} )
                         </div>
                       {% endfor %}
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-between">
+                      <label class="text-danger"> <i class="fas fa-exclamation-triangle"></i>Adresse manquante</label>
+                      <a class="btn btn-primary btn-large" href="{% url 'store:add-address' %}">Ajouter »</a>
+                    </div>
+                    <hr class="border-bottom my-2"><br>
                     {% endif %}
 
-                    <!-- Set up a container element for the button -->
-                    <div class="text-end" id="paypal-button-container"></div>
+                    {% comment %} Set up a container element for the button {% endcomment %}
+                    <div class="text-end" id="paypal-button-container"></div>               
+                  </div>
 
                     {% comment %} For Cash on Delivery {% endcomment %}
-                    <button type="submit" class="btn btn-dark btn-lg btn-outline-dark" type="submit"> <i class="fas fa-dollar-sign mr-2"></i>Payer à la Livraison</button>
-
+                    <button type="submit" class="btn btn-dark btn-outline-dark"><i class="fas fa-dollar-sign mr-2"></i><strong>Payer à la Livraison</strong></button>
+                    <hr>
+                  </div>
                   </form>
+
+                -->
 
                 </div>
               </div>
@@ -156,7 +225,7 @@
 
       {% block payment-gateway %}
         <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR-PAYPAL-CLIENT-ID&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AYt3wtk7yD9ibc2jkYRz6r1FwWD1NY_fcDPThEVE6hQfxiUzDpcgMnbUw3pX54WQPeB26OpbfqfVqfYb&currency=USD"></script>
 
     <script>
         // Render the PayPal button into #paypal-button-container
