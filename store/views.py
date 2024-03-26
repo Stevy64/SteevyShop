@@ -177,8 +177,11 @@ def minus_cart(request, cart_id):
 
 @login_required
 def checkout(request):
+    print("*** ENTERING Checkout ***")
     user = request.user
     address_id = request.GET.get('address')
+    print("ENTERING : user--> " + str(user))
+    print("ENTERING : address_id --> " + str(address_id))
     
     address = get_object_or_404(Address, id=address_id)
     # Get all the products of User in Cart
