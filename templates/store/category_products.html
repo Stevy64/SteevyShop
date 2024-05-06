@@ -38,16 +38,18 @@
                       </div>
                     </a>
                   {% endfor %}
-                {% endif %}
+                
 
-                <h6 class="text-uppercase mb-4">Price range</h6>
+                <!-- FILTERING IMPEMENTATION-->
+                <!-- <h6 class="text-uppercase mb-4">Price range</h6> 
                 <div class="price-range pt-4 mb-5">
                   <div id="range"></div>
                   <div class="row pt-2">
                     <div class="col-6"><strong class="small font-weight-bold text-uppercase">Min</strong></div>
                     <div class="col-6 text-right"><strong class="small font-weight-bold text-uppercase">Max</strong></div>
+                    {% comment %} <div class="slidecontainer"> <input type="range" min="1" max="100"value="{{your_model.chosen_slider_value}}" class="slider" id="myRange"></div> {% endcomment %}
                   </div>
-                </div>
+                </div> 
                 <h6 class="text-uppercase mb-3">Show only</h6>
                 <div class="custom-control custom-checkbox mb-1">
                   <input class="custom-control-input" id="customCheck2" type="checkbox">
@@ -81,29 +83,34 @@
                 <div class="custom-control custom-radio">
                   <input class="custom-control-input" id="customRadio4" type="radio" name="customRadio">
                   <label class="custom-control-label text-small" for="customRadio4">Buy It Now</label>
-                </div>
+                </div> -->
               </div>
+
+
+              
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row mb-3 align-items-center">
                   <div class="col-lg-6 mb-2 mb-lg-0">
-                    <p class="text-small text-muted mb-0">Showing 1–12 of 53 results</p>
+                    <p class="text-small text-muted mb-0">Showing 1–12 of {{ total_products_per_category }}</p>
                   </div>
                   <div class="col-lg-6">
                     <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
-                      <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
-                      <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
+                      <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#large-grid-view"><i class="fas fa-th-large"></i></a></li>
+                      <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#small-grid-view"><i class="fas fa-th"></i></a></li>
                       <li class="list-inline-item">
                         <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
-                          <option value="default">Default sorting</option>
-                          <option value="popularity">Popularity</option>
-                          <option value="low-high">Price: Low to High</option>
-                          <option value="high-low">Price: High to Low</option>
+                          <option value="default">Par défaut</option>
+                          <option value="popularity">Popularité</option>
+                          <option value="low-high">Prix croissant</option>
+                          <option value="high-low">Prix décroissant</option>
                         </select>
                       </li>
                     </ul>
                   </div>
                 </div>
+                {% endif %}
+                
 
                 <div class="row">
 

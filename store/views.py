@@ -42,10 +42,12 @@ def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(is_active=True, category=category)
     categories = Category.objects.filter(is_active=True)
+    total_products_per_category = products.count()
     context = {
         'category': category,
         'products': products,
         'categories': categories,
+        'total_products_per_category': total_products_per_category,
     }
     return render(request, 'store/category_products.html', context)
 
